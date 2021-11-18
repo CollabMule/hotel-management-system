@@ -1,0 +1,184 @@
+#%RAML 1.0
+title: Customers API Part2
+types:
+  Customer: !include dataTypes/CustomerDataType.raml
+  Hotel: !include dataTypes/HotelBookingDataType.raml
+
+traits:
+  unauthorized:
+    responses:
+      401:
+        body:
+          application/json:
+            example:
+              message: Unauthorized! Please try with the correct credentials
+  server_side_error:
+    responses:
+      500:
+        body:
+          application/json:
+            example:
+              message: Something Went Wrong, Try later.
+
+
+securitySchemes:
+  custom_auth:
+    description: customer authorization
+    type: x-clientid
+    describedBy:
+      headers:
+        client_id:
+          type: string
+        client_secret:
+          type: string
+
+/customers:
+  is:
+    - unauthorized
+    - server_side_error
+  get:
+    description: Get all Customers
+    displayName: Get all Customers
+    queryParameters:
+      City:
+        type: string
+        required: false
+        enum:
+          - Hyderabad
+          - Mumbai
+          - Delhi
+          - Bangalore
+      Pincode:
+        type: number
+        required: false
+      Name:
+        type: string
+        required: false
+    responses:
+      200:
+        body:
+          application/json:
+            example: !include examples/CustomersExample.raml
+            type: Customer[]
+            
+  post:
+    description: Add a new Customer
+    displayName: Add a new Customer
+    body:
+      application/json:
+        example: !include examples/CustomerExample.raml
+    responses:
+      201:
+        body:
+          application/json:
+            example:
+              message: Customer Added
+  /{customerId}:
+    is:
+      - unauthorized
+      - server_side_error
+    get:
+      description: Get Customers By ID
+      displayName: Get Customers By ID
+      responses:
+        200:
+          body:
+            application/json:
+              example: !include examples/CustomerExample.raml
+              type: Customer                
+    put:
+      displayName: Update a Customer by ID
+      description: Update a Customer by ID
+      body:
+        application/json:
+          example: !include examples/CustomerExample.raml
+          type: Customer
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: Customer Details Updated
+
+    delete:
+      displayName: Delete a Customer by ID
+      description: Delete a Customer by ID
+      responses:
+        200:
+          body:
+            application/json:
+              example:
+                message: Customer Deleted
+    /hotelBookings:
+      get:
+        displayName: Get Hotel Bookings
+        description: This operation gets all hotels booked based on query parameters
+        queryParameters:
+          year:
+            type: integer
+            required: false
+            example: 2021
+          startDate:
+            type:    string
+            pattern: ^(([0-9])|([0-2][0-9])|([3][0-1])) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4}$
+            required: false
+            example: 04 Feb 2021
+          endDate:
+            type: string
+            required: false
+            pattern: ^(([0-9])|([0-2][0-9])|([3][0-1])) (Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \d{4}$
+            example: 05 Feb 2021
+        
+        responses:
+          200:
+            body:
+              application/json:
+                example: !include examples/HotelBookingsExample.raml
+                type: Hotel[]
+      post:
+        displayName: Add a new Hotel Booking
+        description: This operation adds a Hotel Booking
+        body:
+          application/json:
+            example: !include examples/HotelBookingExample.raml
+            type: Hotel  
+            
+        responses:
+          201:
+            body:
+              application/json:
+                example:
+                  message: Hotel Booking has been created
+          
+      /{hotelBookingId}:
+        get:
+          description: Get HotelBooking by ID
+          displayName: Get HotelBooking by ID
+          responses:
+            200:
+              body:
+                application/json:
+                  example: !include examples/HotelBookingExample.raml
+                  type: Hotel
+        put:
+          description: Update Hotel Booking by ID
+          displayName: Update Hotel Booking by ID
+          body:
+            application/json:
+              example: !include examples/HotelBookingExample.raml
+              type: Hotel
+          responses:
+            200:
+              body:
+                application/json:
+                  example:
+                    message: Hotel Booking Updated
+        delete: 
+          displayName: Delete Hotel Booking by Hotel ID
+          description: Delete Hotel Booking by Hotel ID
+          responses:
+            200:
+              body:
+                application/json:
+                  example:
+                    message: Hotel Booking Deleted

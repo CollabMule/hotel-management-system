@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:munit="http://www.mulesoft.org/schema/mule/munit" xmlns:munit-tools="http://www.mulesoft.org/schema/mule/munit-tools"
+	xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xsi:schemaLocation="
+		http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+		http://www.mulesoft.org/schema/mule/munit http://www.mulesoft.org/schema/mule/munit/current/mule-munit.xsd
+		http://www.mulesoft.org/schema/mule/munit-tools  http://www.mulesoft.org/schema/mule/munit-tools/current/mule-munit-tools.xsd">
+	<munit:config name="Implementation-test-suite.xml" />
+	<munit:test name="Implementation-test-suite-getCustomersByCityImplTest" doc:id="8751f78c-ff36-46c9-95f8-d8b33f6594c5" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="b1d004cd-1868-4b39-9dc5-6a8afbd16b72" >
+				<munit:attributes value='{&#10;	queryParams: {&#10;			"City": "Mumbai"&#10;	}&#10;}' mediaType="application/dw" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to getCustomersByCityImpl" doc:id="ddd5dafc-b779-48aa-8b54-927d4b3c9825" name="getCustomersByCityImpl"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="89c95e29-33f0-4931-8f26-08b9317640f9" is="#[MunitTools::notNullValue()]" expression="#[payload]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="Implementation-test-suite-getCustomersByIdFlowImplTest" doc:id="e23b7351-674b-4a16-89a9-17ec1454231e" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="6246161e-e6c9-4b97-af9a-82c4e66624b7" >
+				<munit:attributes value='{&#10;	uriParams: {&#10;		"customerId": "10"&#10;	}&#10;}' mediaType="application/dw" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to getCustomersByIdFlowImpl" doc:id="915f8906-f864-4526-a098-0f7ae3420a6c" name="getCustomersByIdFlowImpl"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="5e4fd3f6-86b1-4ebc-aa45-e79c64137a70" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="Implementation-test-suite-getHotelBookingByIdImplTest" doc:id="886a958d-2db1-4bec-bffa-ad3c2041c96f" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="91e230f8-e3df-4498-8c65-fda2348fb65c">
+				<munit:attributes value='{&#10;	uriParams: {&#10;		"hotelBookingId": "10000"&#10;	}&#10;}' mediaType="application/dw" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to getHotelBookingByIdImpl" doc:id="fa394ce6-3b9a-4328-b351-17f2cb33c754" name="getHotelBookingByIdImpl"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="985fd11a-1dfa-4d57-9bb6-bed493f95f8e" expression="#[payload]" is="#[MunitTools::notNullValue()]" />
+		</munit:validation>
+	</munit:test>
+	<munit:test name="Implementation-test-suite-getCustomersByPincodeImplTest" doc:id="95fc87e2-fddd-42c6-b0e3-c19fd8d746ad" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="1f8e9395-338d-415b-8107-ed6da143982c">
+				<munit:attributes value='{&#10;	uriParams: {&#10;		"Pincode": "789089"&#10;	}&#10;}' mediaType="application/dw" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to getCustomersByPincodeImpl" doc:id="c91f82e8-c031-4dc0-8474-ac040b799df9" name="getCustomersByPincodeImpl"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="3053e6ff-41c7-45c7-8a56-b1088c331927" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+	<munit:test name="Implementation-test-suite-getHotelBookingsByYearTest" doc:id="a3ca965e-f56b-4825-bd49-e4f4a66c31eb" description="Test">
+		<munit:execution >
+			<munit:set-event doc:name="Set Event" doc:id="f0eab70a-30a0-4f91-8cb6-b5239d8f0af4">
+				<munit:attributes value='{&#10;	querryParams: {&#10;		"year": "2019"&#10;	}&#10;}' mediaType="application/dw" />
+			</munit:set-event>
+			<flow-ref doc:name="Flow-ref to getHotelBookingsByYear" doc:id="ed826d6d-9e50-4b9d-afc2-d9ed5d8b9172" name="getHotelBookingsByYear"/>
+		</munit:execution>
+		<munit:validation >
+			<munit-tools:assert-that doc:name="Assert that" doc:id="17015a09-7651-4417-ae84-da7e92cf130a" expression="#[payload]" is="#[MunitTools::notNullValue()]"/>
+		</munit:validation>
+	</munit:test>
+
+
+</mule>

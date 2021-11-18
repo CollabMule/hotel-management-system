@@ -1,0 +1,27 @@
+%dw 2.0
+
+type auto_5e0fcce5_d667_4641_b047_9585532615db_Input_Attributes = {|
+  clientCertificate?: {|
+    publicKey?: {|  |}, 
+    "type"?: String, 
+    encoded?: Binary
+  |}, 
+  headers: {|  |}, 
+  listenerPath: String, 
+  method: String, 
+  queryParams: {|
+    year?: Number, 
+    startDate?: String, 
+    endDate?: String
+  |}, 
+  queryString: String, 
+  relativePath: String, 
+  remoteAddress: String, 
+  requestPath: String, 
+  requestUri: String, 
+  scheme: String, 
+  uriParams: {| customerId: String |}, 
+  version: String, 
+  localAddress: String
+|}
+

@@ -1,0 +1,17 @@
+%dw 2.0
+
+type auto_b39fd073_b22e_401f_9a56_9e4e69fa8262_Input_Payload = {
+  ac: String, 
+  identification: String, 
+  city: String, 
+  year: Number, 
+  endDate: String, 
+  price: Number, 
+  customerId: Number, 
+  noOfRooms: Number, 
+  hotelName: String, 
+  bookingId: Number, 
+  startDate: String, 
+  _?: Any
+}
+

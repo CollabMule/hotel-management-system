@@ -1,0 +1,4 @@
+%dw 2.0
+
+type auto_d7613447_d157_4feb_ae82_6c35fcbfd8fe_Output_Payload = Array<{  ac: String,   identification: String,   city: String,   year: Number,   endDate: String,   price: Number,   customerId: Number,   noOfRooms: Number,   hotelName: String,   bookingId: Number,   startDate: String,   _?: Any}>
+
